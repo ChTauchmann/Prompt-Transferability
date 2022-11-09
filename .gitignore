@@ -261,3 +261,6 @@ task_activated_neuron*
 .idea/workspace.xml
 .DS_Store
 .DS_Store
+.DS_Store
+*.xml
+.DS_Store
