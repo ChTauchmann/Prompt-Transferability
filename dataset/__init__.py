@@ -2,7 +2,7 @@ from dataset.JsonFromFiles import JsonFromFilesDataset
 from .RTEDataset import RTEDataset
 from .SST2Dataset import SST2Dataset
 from .WikiREDataset import WikiREDataset
-from .SQuADDataset import SQuADDataset
+from .squadDataset import squadDataset
 from .CoLADataset import CoLADataset
 from .MRPCDataset import MRPCDataset
 from .QQPDataset import QQPDataset
@@ -52,7 +52,7 @@ dataset_list = {
     "RTE": RTEDataset,
     "SST2": SST2Dataset,
     "RE": WikiREDataset,
-    "SQuAD": SQuADDataset,
+    "SQuAD": squadDataset,
     "CoLA": CoLADataset,
     "MRPC": MRPCDataset,
     "QQP": QQPDataset,

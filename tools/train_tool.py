@@ -11,6 +11,7 @@ import numpy as np
 from tools.eval_tool import valid, gen_time_str, output_value
 from tools.init_tool import init_test_dataset, init_formatter
 from reader.reader import init_dataset
+from rtpt import RTPT
 
 logger = logging.getLogger(__name__)
 
@@ -156,10 +157,15 @@ def train(parameters, config, gpu_list, do_test=False, local_rank=-1, *args, **k
     if total_len < 10000:
         more = "\t"
 
+    rtpt = RTPT(name_initials='CT', experiment_name='prompt-transfer', max_iterations=10)
 
+    # Start the RTPT tracking
+    rtpt.start()
 
     for epoch_num in range(trained_epoch, epoch):
+
         start_time = timer()
+        logger.info(f"starting epoch num {epoch_num} at {start_time}")
         current_epoch = epoch_num
         model.train()
         exp_lr_scheduler.step(current_epoch)
@@ -274,7 +280,9 @@ def train(parameters, config, gpu_list, do_test=False, local_rank=-1, *args, **k
             if "T5" in config.get("model","model_base"):
                 pass
             else:
-                writer.add_scalar(config.get("output", "model_name") + "_train_epoch_acc", float(acc_result['right']/acc_result['total']), current_epoch)
+                logger.info(f"ACCURACY RESULTS:{acc_result}")
+                #CT_ error message key right missing IDK where this should come from so uncomment it for now
+                #writer.add_scalar(config.get("output", "model_name") + "_train_epoch_acc", float(acc_result['right']/acc_result['total']), current_epoch)
             ###
 
 
@@ -284,4 +292,7 @@ def train(parameters, config, gpu_list, do_test=False, local_rank=-1, *args, **k
                 if do_test:
                     valid(model, test_dataset, current_epoch, writer, config, gpu_list, output_function, mode="test")
         if local_rank >= 0:
+            #torch.distributed.init_process_group(backend=config.get("distributed", "backend"))
             torch.distributed.barrier()
+
+        rtpt.step(subtitle=f"loss={total_loss:2.2f}")

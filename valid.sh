@@ -2,7 +2,7 @@
 # Bert: BertMedium, Bert (BertBase)
 # Roberta: Roberta, RobertaBase (BertBase)
 # T5: T5Small, T5 (T5Base), T5Large
-gpus=7
+gpus=0,1,2,3,4,5,6,7
 DATASET="SST2"
 BACKBONE="Roberta"
 

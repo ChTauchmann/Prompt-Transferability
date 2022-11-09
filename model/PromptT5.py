@@ -13,7 +13,8 @@ from .modeling_t5 import T5ForConditionalGeneration
 from torchnlp.metrics import get_moses_multi_bleu
 
 from transformers import T5TokenizerFast
-tokenizer = T5TokenizerFast.from_pretrained("T5ForMaskedLM/t5-base")
+#tokenizer = T5TokenizerFast.from_pretrained("t5-base")
+tokenizer = T5TokenizerFast.from_pretrained("t5-base")
 
 from nltk.translate.bleu_score import sentence_bleu
 from nltk.translate.bleu_score import SmoothingFunction

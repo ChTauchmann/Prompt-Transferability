@@ -21,7 +21,7 @@ class activate_neuronPromptT5Formatter(BasicFormatter):
             try:
                 self.tokenizer = T5TokenizerFast.from_pretrained("t5-base")
             except:
-                self.tokenizer = T5TokenizerFast.from_pretrained("T5ForMaskedLM/t5-base")
+                self.tokenizer = T5TokenizerFast.from_pretrained("t5-base")
         else:
             print("Have no matching in the formatter")
             exit()

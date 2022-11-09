@@ -7,13 +7,15 @@ import numpy as np
 from tools.init_tool import init_all
 from config_parser import create_config
 from tools.train_tool import train
+from rtpt import RTPT
+import time
 
 logging.basicConfig(format='%(asctime)s - %(levelname)s - %(name)s -   %(message)s',
                     datefmt='%m/%d/%Y %H:%M:%S',
                     level=logging.INFO)
 
 logger = logging.getLogger(__name__)
-logger.info(f"access to {torch.cuda.device_count()} GPUS in torch")
+
 def set_random_seed(seed):
     """Set random seed for reproducability."""
 
@@ -24,9 +26,10 @@ def set_random_seed(seed):
         torch.cuda.manual_seed_all(seed)
 
 if __name__ == "__main__":
+
     parser = argparse.ArgumentParser()
     parser.add_argument('--config', '-c', help="specific config file", default='config/STSBPromptRoberta.config')
-    parser.add_argument('--gpu', '-g', help="gpu id list", default='0')
+    parser.add_argument('--gpu', '-g', help="gpu id list", default='[0,1,2,3,4,5,6,7]')
     parser.add_argument('--checkpoint', help="checkpoint file path", type=str, default=None)
     parser.add_argument('--local_rank', type=int, help='local rank', default=-1)
     parser.add_argument('--do_test', help="do test while training or not", action="store_true")
@@ -56,6 +59,13 @@ if __name__ == "__main__":
     #print(config.get("data","train_formatter_type"))
     #print("=====")
     #exit()
+    try:
+        logger.info(f"stuff in environment: {os.environ}")
+        logger.info(f'GPUS in environment: {os.environ["CUDA_VISIBLE_DEVICES"]}')
+        logger.info(f"CUDA gpus: {torch.cuda.device_count()}")
+        logger.info(f"CUDA version pytorch uses: {torch.version.cuda}")
+    except:
+        pass
 
 
     use_gpu = True
@@ -74,19 +84,27 @@ if __name__ == "__main__":
     os.system("clear")
     #print(args.local_rank)
     #args.local_rank = torch.distributed.get_rank()
-    config.set('distributed', 'local_rank', args.local_rank)
+    #config.set('distributed', 'local_rank', args.local_rank)
+
     #############################
     ###muti machine and muti pgus
     #if config.getboolean("distributed", "use"):
-    logger.info(f"list of gpus: {gpu_list}")
+
     if config.getboolean("distributed", "use") and len(gpu_list) > 1:
-        torch.distributed.init_process_group(backend=config.get("distributed", "backend"))
+        print(config.get("distributed", "local_rank"))
+        print(config.get("distributed", "rank"))
+        #logger.info(f"local rank in gpu list: {gpu_list[args.local_rank]}")
+        #exit()
+        torch.distributed.init_process_group(backend=config.get("distributed", "backend"),
+                                             #rank=int(config.get("distributed","rank")),
+                                             #world_size=int(config.get("distributed","world_size"))
+                                             )
+
         torch.cuda.set_device(gpu_list[args.local_rank])
         logger.info("initialize {} th GPU Done!".format(gpu_list[args.local_rank]))
         config.set('distributed', 'gpu_num', len(gpu_list))
     else:
         config.set("distributed", "use", False)
-        logger.info("not using distributed")
 
     ### one machine muti gpus
     #if len(gpu_list) > 1:

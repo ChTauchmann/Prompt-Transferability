@@ -90,6 +90,7 @@ def valid(model, dataset, epoch, writer, config, gpu_list, output_function, mode
             acc_result = results["acc_result"]
         else:
             loss, acc_result = results["loss"], results["acc_result"]
+
         #if "AE" in kwargs:
         #    loss, loss_target, acc_result, acc_result_target = results["loss_total"], results["loss_target"], results["acc_result"], results["acc_result_target"]
 
@@ -108,7 +109,8 @@ def valid(model, dataset, epoch, writer, config, gpu_list, output_function, mode
                     gen_time_str(delta_t), gen_time_str(delta_t * (total_len - step - 1) / (step + 1))),
                              "%.3lf" % (total_loss / (step + 1)), output_info, '\r', config)
 
-
+    logger.info(f"results from model: {results}")
+    #exit()
 
     if step == -1:
         logger.error("There is no data given to the model in this epoch, check your data.")
@@ -117,8 +119,13 @@ def valid(model, dataset, epoch, writer, config, gpu_list, output_function, mode
     if config.getboolean("distributed", "use"):
         shape = (len(acc_result), 4)
         # mytensor = torch.LongTensor([acc_result[key] for key in acc_result]).to(gpu_list[local_rank])
-        mytensor = torch.LongTensor([[key["TP"], key["FN"], key["FP"], key["TN"]] for key in acc_result]).to(gpu_list[local_rank])
-        mylist = [torch.LongTensor(shape[0], shape[1]).to(gpu_list[local_rank]) for i in range(config.getint('distributed', 'gpu_num'))]
+        logger.info(f"ACCURACY RESULT DICT: {acc_result}")
+        try:
+            mytensor = torch.LongTensor([[key["TP"], key["FN"], key["FP"], key["TN"]] for key in acc_result]).to(gpu_list[local_rank])
+            mylist = [torch.LongTensor(shape[0], shape[1]).to(gpu_list[local_rank]) for i in range(config.getint('distributed', 'gpu_num'))]
+        except:
+            logger.info("tensorstuff not working")
+            #exit()
         # print('shape', shape)
         # print('mytensor', mytensor.shape)
         torch.distributed.all_gather(mylist, mytensor)#, 0)
@@ -155,6 +162,8 @@ def valid(model, dataset, epoch, writer, config, gpu_list, output_function, mode
         else:
             writer.add_scalar(config.get("output", "model_name") + "_eval_epoch", float(total_loss) / (step + 1), epoch)
         ######Acc
+        logger.info(f"accuracy results: {acc_result}")
+        # CT_ error message key right missing IDK where this should come from so uncomment it for now
         writer.add_scalar(config.get("output", "model_name") + "_eval_epoch_acc", float(acc_result['right']/acc_result['total']), epoch)
         ######
 

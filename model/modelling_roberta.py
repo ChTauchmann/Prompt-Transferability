@@ -30,6 +30,28 @@ from transformers.file_utils import (
     # add_start_docstrings_to_callable,
     replace_return_docstrings,
 )
+
+from rtpt import RTPT
+import random
+import time
+
+# Create RTPT object
+rtpt = RTPT(name_initials='CT', experiment_name='prompt-transfer', max_iterations=10)
+
+# Start the RTPT tracking
+rtpt.start()
+"""
+for epoch in range(10):
+    time.sleep(4)
+    # Perform a single experiment iteration
+    loss = random.random()
+
+    # Update the RTPT (subtitle is optional)
+    rtpt.step(subtitle=f"loss={loss:2.2f}")
+"""
+# Loop over all iterations
+
+import rtpt
 def add_start_docstrings_to_callable(*docstr):
     def docstring_decorator(fn):
         class_name = ":class:`~transformers.{}`".format(fn.__qualname__.split(".")[0])
@@ -716,7 +738,7 @@ class RobertaModel(RobertaPreTrainedModel):
 
     @add_start_docstrings_to_callable(ROBERTA_INPUTS_DOCSTRING.format("(batch_size, sequence_length)"))
     @add_code_sample_docstrings(
-        tokenizer_class=_TOKENIZER_FOR_DOC,
+        ##tokenizer_class=_TOKENIZER_FOR_DOC,
         checkpoint="roberta-base",
         output_type=BaseModelOutputWithPooling,
         config_class=_CONFIG_FOR_DOC,
@@ -991,7 +1013,7 @@ class RobertaForMaskedLM(RobertaPreTrainedModel):
 
     @add_start_docstrings_to_callable(ROBERTA_INPUTS_DOCSTRING.format("batch_size, sequence_length"))
     @add_code_sample_docstrings(
-        tokenizer_class=_TOKENIZER_FOR_DOC,
+        ##tokenizer_class=_TOKENIZER_FOR_DOC,
         checkpoint="roberta-base",
         output_type=MaskedLMOutput,
         config_class=_CONFIG_FOR_DOC,
@@ -1173,7 +1195,7 @@ class RobertaForSequenceClassification(RobertaPreTrainedModel):
 
     @add_start_docstrings_to_callable(ROBERTA_INPUTS_DOCSTRING.format("batch_size, sequence_length"))
     @add_code_sample_docstrings(
-        tokenizer_class=_TOKENIZER_FOR_DOC,
+        ##tokenizer_class=_TOKENIZER_FOR_DOC,
         checkpoint="roberta-base",
         output_type=SequenceClassifierOutput,
         config_class=_CONFIG_FOR_DOC,
@@ -1255,7 +1277,7 @@ class RobertaForMultipleChoice(RobertaPreTrainedModel):
 
     @add_start_docstrings_to_callable(ROBERTA_INPUTS_DOCSTRING.format("batch_size, num_choices, sequence_length"))
     @add_code_sample_docstrings(
-        tokenizer_class=_TOKENIZER_FOR_DOC,
+        ##tokenizer_class=_TOKENIZER_FOR_DOC,
         checkpoint="roberta-base",
         output_type=MultipleChoiceModelOutput,
         config_class=_CONFIG_FOR_DOC,
@@ -1347,7 +1369,7 @@ class RobertaForTokenClassification(RobertaPreTrainedModel):
 
     @add_start_docstrings_to_callable(ROBERTA_INPUTS_DOCSTRING.format("batch_size, sequence_length"))
     @add_code_sample_docstrings(
-        tokenizer_class=_TOKENIZER_FOR_DOC,
+        ##tokenizer_class=_TOKENIZER_FOR_DOC,
         checkpoint="roberta-base",
         output_type=TokenClassifierOutput,
         config_class=_CONFIG_FOR_DOC,
@@ -1454,7 +1476,7 @@ class RobertaForQuestionAnswering(RobertaPreTrainedModel):
 
     @add_start_docstrings_to_callable(ROBERTA_INPUTS_DOCSTRING.format("batch_size, sequence_length"))
     @add_code_sample_docstrings(
-        tokenizer_class=_TOKENIZER_FOR_DOC,
+        ##tokenizer_class=_TOKENIZER_FOR_DOC,
         checkpoint="roberta-base",
         output_type=QuestionAnsweringModelOutput,
         config_class=_CONFIG_FOR_DOC,

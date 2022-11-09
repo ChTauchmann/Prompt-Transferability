@@ -3,6 +3,7 @@ from transformers import AdamW
 import torch
 def get_params_for_prompt_optimization(module: torch.nn.Module):
     params = []
+    print(f"all named moduls: {module.named_modules()}")
     for t in module.named_modules():
         # print(t[0])
         if "prompt" in t[0]:

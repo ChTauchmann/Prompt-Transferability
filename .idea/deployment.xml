@@ -1,11 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< Updated upstream
   <component name="PublishConfigData" autoUpload="Always" serverName="DGX-E" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
       <paths name="DGX-E">
         <serverdata>
           <mappings>
             <mapping deploy="/repos/Prompt-Transferability" local="$PROJECT_DIR$" web="/" />
+=======
+  <component name="PublishConfigData" autoUpload="Always" serverName="DGX-D" remoteFilesAllowedToDisappearOnAutoupload="false" confirmBeforeUploading="false">
+    <option name="confirmBeforeUploading" value="false" />
+    <serverData>
+      <paths name="DGX-D">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/repos/prompt-transfer" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="DGX-F">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/ml-ctauchmann/repos/prompt-transfer" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="DGX-G">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/repos/prompt-transferability" local="$PROJECT_DIR$" web="/" />
+>>>>>>> Stashed changes
           </mappings>
         </serverdata>
       </paths>

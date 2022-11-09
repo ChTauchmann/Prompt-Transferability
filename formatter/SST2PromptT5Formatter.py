@@ -23,8 +23,8 @@ class SST2PromptT5Formatter(BasicFormatter):
                 #self.tokenizer = AutoTokenizer.from_pretrained("t5-base")
                 self.tokenizer = T5TokenizerFast.from_pretrained("t5-base")
             except:
-                #self.tokenizer = AutoTokenizer.from_pretrained("T5ForMaskedLM/t5-base")
-                self.tokenizer = T5TokenizerFast.from_pretrained("T5ForMaskedLM/t5-base")
+                #self.tokenizer = AutoTokenizer.from_pretrained("t5-base")
+                self.tokenizer = T5TokenizerFast.from_pretrained("t5-base")
         #elif "Bert" in self.model_name:
         #    self.tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
         else:

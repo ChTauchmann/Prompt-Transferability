@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="a2af4fd1-5637-4ee9-88ef-667638ba922d" name="DGX-B">
+        <fileTransfer rootFolder="/home/ml-ctauchmann" accessType="SFTP" host="130.83.42.211" port="22" sshConfigId="539e94f0-7673-445c-a736-c4ab4f4c6d18" sshConfig="dgx-g">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+      <webServer id="876ac323-e4cf-464a-982e-be92b6c454dd" name="DGX-G">
+        <fileTransfer rootFolder="/home/ml-ctauchmann" accessType="SFTP" host="130.83.42.211" port="22" sshConfigId="539e94f0-7673-445c-a736-c4ab4f4c6d18" sshConfig="dgx-g">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" isUseRsync="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+      <webServer id="84e0b59b-19d6-4170-a105-35e731bb6c24" name="DGX-F">
+        <fileTransfer accessType="SFTP" host="130.83.42.209" port="22" sshConfigId="e81c81e6-3704-43f9-9732-bbb6bf24157d" sshConfig="dgx-f">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

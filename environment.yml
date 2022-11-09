@@ -5,6 +5,7 @@ channels:
   - https://mirrors.ustc.edu.cn/anaconda/pkgs/main/
   - defaults
 dependencies:
+  - pip>=21.2.2
   - _libgcc_mutex=0.1=main
   - _openmp_mutex=4.5=1_gnu
   - ca-certificates=2021.7.5=h06a4308_1
@@ -31,7 +32,7 @@ dependencies:
     - backcall==0.2.0
     - banal==1.0.6
     - brotli==1.0.9
-    - c==0.1.0
+    - c
     - cached-property==1.5.2
     - charset-normalizer==2.0.4
     - click==6.7
@@ -61,10 +62,10 @@ dependencies:
     - multiprocess==0.70.12.2
     - multivolumefile==0.2.3
     - nltk==3.6.5
-    - numpy==1.17.0
+    - numpy
     - opentsne==0.6.0
     - packaging==21.0
-    - pandas==1.1.5
+    - pandas
     - parso==0.8.3
     - pexpect==4.8.0
     - pickleshare==0.7.5
@@ -87,6 +88,7 @@ dependencies:
     - pyzstd==0.15.0
     - regex==2021.8.28
     - requests==2.26.0
+    - rtpt
     - sacremoses==0.0.45
     - scikit-learn==0.24.2
     - scipy==1.0.0
@@ -97,9 +99,9 @@ dependencies:
     - texttable==1.6.4
     - threadpoolctl==2.2.0
     - tokenizers==0.10.3
-    - torch==1.9.0+cu111
+    - torch==1.9.0
     - torchaudio==0.9.0
-    - torchvision==0.10.0+cu111
+    - torchvision==0.10.0
     - tqdm==4.62.2
     - traitlets==4.3.3
     - transformers==4.10.0
